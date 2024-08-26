@@ -90,9 +90,3 @@ class MealDetailsResponse {
 struct DetailsResponse: Decodable {
     var meals: [[String: String?]]
 }
-
-extension String {
-    var lines: [String] {
-        return self.components(separatedBy: .newlines)
-    }
-}

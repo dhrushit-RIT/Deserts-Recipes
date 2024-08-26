@@ -8,6 +8,12 @@
 import SwiftUI
 import SwiftData
 
+// MARK: - Note to evaluator
+/// Please ignore the swift data related code. Nothing has been implemented with regards to that.
+/// I have divided the view components into `DashboardListView`, `IngredientsListView`, and `InstructionsView` in order to allow improving the views further.
+/// My plan is to add favorites section and context menu to allow making some of the desserts faovrite.
+///
+
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
