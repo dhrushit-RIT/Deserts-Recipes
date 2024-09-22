@@ -29,7 +29,6 @@ class MealDetailsViewModel {
         guard let url = URL(string: api) else { throw DetailsErrors.invalidURL }
         do {
             let (data, _) = try await URLSession.shared.data(from: url)
-//            print("DEBUG " + (String(data: data, encoding: .utf8) ?? ""))
             let jsonObject = try JSONDecoder().decode(DetailsResponse.self, from: data)
             details = MealDetailsResponse.getInstance(from: jsonObject)
         } catch let error {
@@ -61,7 +60,6 @@ class MealDetailsResponse {
         var ingredients: [Ingredient] = []
         
         let instructions = instructionsStr.lines.filter { !$0.trimmingCharacters(in: .whitespaces).isEmpty }
-//        print("DEBUG Instructions: \(instructions)")
         let measurementPrefix = "strMeasure"
         let ingredientPrefix = "strIngredient"
         
@@ -75,8 +73,6 @@ class MealDetailsResponse {
                 ingredients.append(Ingredient(name: validIngredient, quantity: validMeasure))
             }
         }
-        
-//        print("DEBUG instructions size:  \(instructions.count)")
         
         return MealDetailsResponse(
             name: name,

@@ -60,7 +60,6 @@ struct TabDetailView: View {
                             .containerRelativeFrame(.horizontal, alignment: .center)
                         }
                     }
-//                    .frame(height: contentHeight)
                     .scrollTargetBehavior(.paging)
                     .scrollPosition(id: $selectedDetail)
                     .scrollTargetLayout()
