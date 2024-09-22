@@ -7,21 +7,12 @@
 
 import SwiftUI
 
-struct HeightPreferenceKey: PreferenceKey {
-    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
-        value = max(value, nextValue())
-    }
-    
-    static var defaultValue: CGFloat = 0
-}
-
 struct TabDetailView: View {
     @State private var selectedDetail: DetailType? = .ingredients
     @State private var activeTab: DetailType = .ingredients
     @State private var contentHeight: CGFloat = 100
     
     @Binding var viewModel: MealDetailsViewModel
-    private let padding: CGFloat = 60
     
     var body: some View {
         GeometryReader { geo in
@@ -41,7 +32,6 @@ struct TabDetailView: View {
                     .padding()
                     .pickerStyle(.segmented)
                     .onChange(of: activeTab) { oldValue, newValue in
-//                        print(selectedDetail, oldValue, newValue)
                         withAnimation {
                             selectedDetail = newValue
                         }
@@ -54,12 +44,6 @@ struct TabDetailView: View {
                                 case .ingredients:
                                     IngredientsListView(mealDetails: $viewModel.details)
                                         .tag(DetailType.ingredients.id)
-                                        .frame(width: max(0, geo.size.width - padding))
-                                        .background {
-                                            GeometryReader { geo in
-                                                Color.clear.preference(key: HeightPreferenceKey.self, value: geo.size.height)
-                                            }
-                                        }
                                         .onAppear {
                                             print(contentHeight)
                                         }
@@ -67,21 +51,16 @@ struct TabDetailView: View {
                                 case .instructions:
                                     InstructionsView(mealDetails: $viewModel.details)
                                         .tag(DetailType.instructions.id)
-                                        .frame(width: max(0, geo.size.width - padding))
-                                        .background {
-                                            GeometryReader { geo in
-                                                Color.clear.preference(key: HeightPreferenceKey.self, value: geo.size.height)
-                                            }
-                                        }
                                         .onAppear {
                                             print(contentHeight)
                                         }
                                 }
                             }
                             .padding()
+                            .containerRelativeFrame(.horizontal, alignment: .center)
                         }
                     }
-                    .frame(height: contentHeight)
+//                    .frame(height: contentHeight)
                     .scrollTargetBehavior(.paging)
                     .scrollPosition(id: $selectedDetail)
                     .scrollTargetLayout()
@@ -92,9 +71,6 @@ struct TabDetailView: View {
                                 activeTab = newValue
                             }
                         }
-                    }
-                    .onPreferenceChange(HeightPreferenceKey.self) { width in
-                        contentHeight = width
                     }
                     
                 }
@@ -114,7 +90,6 @@ struct PreviewView: View {
         TabDetailView(viewModel: $viewModel)
             .task {
                 try? await viewModel.fetchDetails()
-//                print(viewModel.details?.instructions)
             }
     }
 }
