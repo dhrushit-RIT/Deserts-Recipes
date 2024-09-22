@@ -19,7 +19,7 @@ struct ContentView: View {
     @Query private var items: [Item]
     
     var body: some View {
-        DashboardListView()
+        MealsGridView()
     }
 
     private func addItem() {

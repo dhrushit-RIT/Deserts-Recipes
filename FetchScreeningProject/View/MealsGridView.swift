@@ -1,5 +1,5 @@
 //
-//  DashboardListView.swift
+//  MealsGridView.swift
 //  FetchScreeningProject
 //
 //  Created by Dhrushit Raval on 8/25/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DashboardListView: View {
+struct MealsGridView: View {
     @State private var path = NavigationPath()
     @State private var searchString: String = ""
     
@@ -68,5 +68,5 @@ struct MealsList: View {
 }
 
 #Preview {
-    DashboardListView()
+    MealsGridView()
 }
