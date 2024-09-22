@@ -10,6 +10,8 @@ import SwiftUI
 struct MealsGridView: View {
     @State private var path = NavigationPath()
     @State private var searchString: String = ""
+    @State private var showDetailSheet = false
+    @State private var mealToShow: Meal?
     
     var filteredMeals: [Meal] {
         guard !searchString.isEmpty else { return [] }
@@ -34,10 +36,18 @@ struct MealsGridView: View {
                 LazyVGrid(columns: gridContent, alignment: .center, spacing: 20, content: {
                     ForEach(searchString.isEmpty ? viewModel.meals : filteredMeals, id: \.idMeal) { meal in
                         DashboardItemView(meal: meal)
+                            .onTapGesture {
+                                showDetailSheet = true
+                                mealToShow = meal
+                            }
                     }
                 })
             }
             .navigationTitle("Deserts")
+            .sheet(item: $mealToShow, content: { meal in
+                MealDetailsView(viewModel: MealDetailsViewModel(mealID: meal.idMeal), mealImage: meal.strMealThumb)
+            })
+            .presentationDetents([.large, .fraction(1.0)])
             .searchable(text: $searchString, prompt: "Search your fav recipe")
         }
         .task {
@@ -52,16 +62,13 @@ struct MealsList: View {
         List {
             ForEach(meals, id: \.idMeal) { meal in
                 NavigationLink(destination: {
-                    MealDetailsView(meal: meal)
+                    MealDetailsView(viewModel: MealDetailsViewModel(mealID: Mocks.meal.idMeal), mealImage: Mocks.meal.strMealThumb)
                 }, label: {
                     FavoriteListCell(meal: meal)
                 })
             }
         }
         .navigationTitle("Deserts")
-        .navigationDestination(for: MealDetailsView.self, destination: { view in
-            view
-        })
         .listStyle(.plain)
         
     }

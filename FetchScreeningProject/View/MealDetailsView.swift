@@ -25,7 +25,6 @@ struct MealDetailsView: View {
     @Environment(\.dismiss) var dismiss
     @State private var meal: Meal
     @State private var expanded = true
-    @State private var showSheet = true
     @State private var viewModel: MealDetailsViewModel
     
     var ingredients: [Ingredient] {
@@ -42,29 +41,10 @@ struct MealDetailsView: View {
     }
     
     var body: some View {
-        VStack {
-            if let url = URL(string: meal.strMealThumb) {
-                AsyncImage(url: url) { image in
-                    image
-                        .resizable()
-                        .frame(maxWidth: .infinity)
-                        .scaledToFit()
-                } placeholder: {
-                    Rectangle()
-                        .fill(.background)
-                        .frame(maxWidth: .infinity)
-                }
-                .ignoresSafeArea()
-            }
-            Spacer()
-        }
+        
+        TabDetailView(viewModel: viewModel, mealImage: meal.strMealThumb)
         .task {
             try? await viewModel.fetchDetails()
-        }
-        .sheet(isPresented: $showSheet, onDismiss: {
-            dismiss()
-        }) {
-            TabDetailView(viewModel: $viewModel)
         }
     }
 }

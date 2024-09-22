@@ -1,5 +1,5 @@
 //
-//  TabDetailView.swift
+//  MealDetailsView.swift
 //  FetchScreeningProject
 //
 //  Created by Dhrushit Raval on 9/20/24.
@@ -7,17 +7,64 @@
 
 import SwiftUI
 
-struct TabDetailView: View {
+enum DetailType: CaseIterable, Identifiable, Hashable {
+    var id: Self { self }
+    
+    case ingredients
+    case instructions
+    
+    var pickerTitle: String {
+        switch self {
+        case .ingredients: return "Ingredients"
+        case .instructions: return "Instructions"
+        }
+    }
+}
+
+struct HeightPreferenceKey: PreferenceKey {
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
+        value = max(value, nextValue())
+    }
+    
+    static var defaultValue: CGFloat = 0
+}
+
+
+struct MealDetailsView: View {
     @State private var selectedDetail: DetailType? = .ingredients
     @State private var activeTab: DetailType = .ingredients
     @State private var contentHeight: CGFloat = 100
     
-    @Binding var viewModel: MealDetailsViewModel
+    var viewModel: MealDetailsViewModel
+    var mealImage: String
+    
+    init(viewModel: MealDetailsViewModel, mealImage: String) {
+        self.viewModel = viewModel
+        self.mealImage = mealImage
+        
+        print(mealImage)
+        
+        UIScrollView.appearance().bounces = false
+    }
     
     var body: some View {
         GeometryReader { geo in
             ScrollView {
                 VStack {
+                    if let url = URL(string: mealImage) {
+                        AsyncImage(url: url) { image in
+                            image
+                                .resizable()
+                                .frame(maxWidth: .infinity)
+                                .scaledToFill()
+                                .ignoresSafeArea()
+                        } placeholder: {
+                            Rectangle()
+                                .fill(.background)
+                                .frame(maxWidth: .infinity)
+                        }
+                        .ignoresSafeArea()
+                    }
                     Spacer()
                         .frame(height: 20)
                     Text(viewModel.details?.name ?? "")
@@ -40,22 +87,29 @@ struct TabDetailView: View {
                     ScrollView(.horizontal) {
                         LazyHStack(alignment: .top, spacing: 0) {
                             ForEach(DetailType.allCases) { type in
-                                switch type {
-                                case .ingredients:
-                                    IngredientsListView(mealDetails: $viewModel.details)
-                                        .tag(DetailType.ingredients.id)
-                                        .onAppear {
-                                            print(contentHeight)
-                                        }
+                                if let details = viewModel.details {
+                                    switch type {
+                                    case .ingredients:
+                                        IngredientsListView(mealDetails: details)
+                                            .tag(DetailType.ingredients.id)
+                                            .background {
+                                                GeometryReader { geo in
+                                                    Color.clear.preference(key: HeightPreferenceKey.self, value: geo.size.height)
+                                                }
+                                            }
                                         
-                                case .instructions:
-                                    InstructionsView(mealDetails: $viewModel.details)
-                                        .tag(DetailType.instructions.id)
-                                        .onAppear {
-                                            print(contentHeight)
-                                        }
+                                    case .instructions:
+                                        InstructionsView(mealDetails: details)
+                                            .tag(DetailType.instructions.id)
+                                            .background {
+                                                GeometryReader { geo in
+                                                    Color.clear.preference(key: HeightPreferenceKey.self, value: geo.size.height)
+                                                }
+                                            }
+                                    }
                                 }
                             }
+                            .frame(height: contentHeight)
                             .padding()
                             .containerRelativeFrame(.horizontal, alignment: .center)
                         }
@@ -71,12 +125,17 @@ struct TabDetailView: View {
                             }
                         }
                     }
+                    .onPreferenceChange(HeightPreferenceKey.self, perform: { value in
+                        contentHeight = value
+                    })
                     
                 }
-                .padding()
                 .presentationDetents([.medium, .large])
                 .navigationTitle(viewModel.details?.name ?? "")
                 .presentationCornerRadius(20)
+            }
+            .task {
+                try? await viewModel.fetchDetails()
             }
             .scrollIndicators(.hidden)
         }
@@ -86,9 +145,10 @@ struct TabDetailView: View {
 struct PreviewView: View {
     @State var viewModel = MealDetailsViewModel(mealID: Mocks.meal.idMeal)
     var body: some View {
-        TabDetailView(viewModel: $viewModel)
+        MealDetailsView(viewModel: viewModel, mealImage: Mocks.meal.strMealThumb)
             .task {
                 try? await viewModel.fetchDetails()
+                print(viewModel.details?.name)
             }
     }
 }

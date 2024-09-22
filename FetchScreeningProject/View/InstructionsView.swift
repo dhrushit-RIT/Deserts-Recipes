@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct InstructionsView: View {
-    @Binding var mealDetails: MealDetailsResponse?
+    var mealDetails: MealDetailsResponse
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -19,7 +19,7 @@ struct InstructionsView: View {
                 .padding(.bottom, 10)
             
             VStack {
-                ForEach((mealDetails?.instructions ?? []).indices, id: \.self) { index in
+                ForEach((mealDetails.instructions).indices, id: \.self) { index in
                     HStack(alignment: .top) {
                         Text("\(index + 1).")
                             .frame(width: 20)
@@ -33,7 +33,7 @@ struct InstructionsView: View {
                             .background(Color.secondary)
                             .padding(.trailing, 4)
                         
-                        Text("\(mealDetails?.instructions[index] ?? "")")
+                        Text("\(mealDetails.instructions[index])")
                             .foregroundStyle(.secondary)
                             .fixedSize(horizontal: false, vertical: true)
                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -46,9 +46,9 @@ struct InstructionsView: View {
     }
 }
 struct PreviewInstructionsView: View {
-    @State var mealDetailResponse: MealDetailsResponse? = Mocks.mealDetailResponse
+    @State var mealDetailResponse: MealDetailsResponse = Mocks.mealDetailResponse
     var body: some View {
-        InstructionsView(mealDetails: $mealDetailResponse)
+        InstructionsView(mealDetails: mealDetailResponse)
     }
 }
 

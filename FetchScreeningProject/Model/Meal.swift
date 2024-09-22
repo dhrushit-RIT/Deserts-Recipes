@@ -5,7 +5,10 @@
 //  Created by Dhrushit Raval on 8/18/24.
 //
 
-struct Meal: Codable {
+import Foundation
+
+struct Meal: Codable, Identifiable {
+    private (set) var id: String? = UUID().uuidString
     let strMeal: String
     let strMealThumb: String
     let idMeal: String

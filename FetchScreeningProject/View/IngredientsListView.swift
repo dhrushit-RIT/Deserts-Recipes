@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct IngredientsListView: View {
-    @Binding var mealDetails: MealDetailsResponse?
+    var mealDetails: MealDetailsResponse
     
     var body: some View {
         VStack {
@@ -19,11 +19,11 @@ struct IngredientsListView: View {
                     .fontWeight(.bold)
                     .padding(.bottom, 10)
                 Spacer()
-                Text("\(mealDetails?.ingredients.count ?? 0) Items")
+                Text("\(mealDetails.ingredients.count) Items")
                     .foregroundStyle(.secondary)
             }
             
-            ForEach (mealDetails?.ingredients ?? [], id: \.name) { ingredient in
+            ForEach (mealDetails.ingredients, id: \.name) { ingredient in
                 HStack {
                     Text("\(ingredient.name)")
                     Spacer()
@@ -39,9 +39,9 @@ struct IngredientsListView: View {
 }
 
 struct PreviewIngredientsListView: View {
-    @State var mealDetailResponse: MealDetailsResponse? = Mocks.mealDetailResponse
+    @State var mealDetailResponse: MealDetailsResponse = Mocks.mealDetailResponse
     var body: some View {
-        IngredientsListView(mealDetails: $mealDetailResponse)
+        IngredientsListView(mealDetails: mealDetailResponse)
     }
 }
 
