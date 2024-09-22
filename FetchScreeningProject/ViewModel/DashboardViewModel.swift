@@ -39,6 +39,10 @@ class DashboardViewModel {
                 throw DashboardErrors.parseError
             case .requestFailure:
                 print("DEBUG could not complete the request successfully")
+            case .invalidResponse:
+                break
+            case .invalidData:
+                break
             }
         }
     }
