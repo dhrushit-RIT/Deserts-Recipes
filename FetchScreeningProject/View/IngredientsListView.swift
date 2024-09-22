@@ -23,17 +23,24 @@ struct IngredientsListView: View {
                     .foregroundStyle(.secondary)
             }
             
-            ForEach (mealDetails.ingredients, id: \.name) { ingredient in
-                HStack {
-                    Text("\(ingredient.name)")
-                    Spacer()
-                    Text("\(ingredient.quantity)")
-                    
+            VStack {
+                ForEach (mealDetails.ingredients, id: \.name) { ingredient in
+                    HStack {
+                        Text("\(ingredient.name)")
+                        Spacer()
+                        Text("\(ingredient.quantity)")
+                        
+                    }
+                    .padding(.horizontal, 20)
+                    .frame(height: 32)
+                    Divider()
                 }
-                .padding(.horizontal, 20)
-                .frame(height: 32)
-                Divider()
             }
+            .padding()
+            .background(
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(.gray.opacity(0.1))
+            )
         }
     }
 }

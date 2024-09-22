@@ -20,27 +20,18 @@ struct InstructionsView: View {
             
             VStack {
                 ForEach((mealDetails.instructions).indices, id: \.self) { index in
-                    HStack(alignment: .top) {
-                        Text("\(index + 1).")
-                            .frame(width: 20)
-                            .font(.title2)
-                            .foregroundStyle(.primary)
-                            .padding(.trailing, 8)
-                        
-                        Spacer()
-                            .frame(width: 4)
-                            .frame(maxHeight: .infinity)
-                            .background(Color.secondary)
-                            .padding(.trailing, 4)
-                        
-                        Text("\(mealDetails.instructions[index])")
-                            .foregroundStyle(.secondary)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(8)
+                    Text("\(mealDetails.instructions[index])")
+                        .padding()
+                        .foregroundStyle(.secondary)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(
+                            RoundedRectangle(cornerRadius: 8)
+                                .fill(.gray.opacity(0.1))
+                        )
                 }
+                .padding(.horizontal)
+                .padding(.vertical, 6)
             }
         }
     }
