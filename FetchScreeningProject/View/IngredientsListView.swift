@@ -38,6 +38,13 @@ struct IngredientsListView: View {
     }
 }
 
-//#Preview {
-//    IngredientsListView(ingredients: Mocks.ingredients)
-//}
+struct PreviewIngredientsListView: View {
+    @State var mealDetailResponse: MealDetailsResponse? = Mocks.mealDetailResponse
+    var body: some View {
+        IngredientsListView(mealDetails: $mealDetailResponse)
+    }
+}
+
+#Preview {
+    PreviewIngredientsListView()
+}

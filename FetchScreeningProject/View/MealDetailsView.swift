@@ -7,9 +7,25 @@
 
 import SwiftUI
 
+enum DetailType: CaseIterable, Identifiable, Hashable {
+    var id: Self { self }
+    
+    case ingredients
+    case instructions
+    
+    var pickerTitle: String {
+        switch self {
+        case .ingredients: return "Ingredients"
+        case .instructions: return "Instructions"
+        }
+    }
+}
+
 struct MealDetailsView: View {
+    @Environment(\.dismiss) var dismiss
     @State private var meal: Meal
     @State private var expanded = true
+    @State private var showSheet = true
     @State private var viewModel: MealDetailsViewModel
     
     var ingredients: [Ingredient] {
@@ -26,17 +42,30 @@ struct MealDetailsView: View {
     }
     
     var body: some View {
-        ScrollView {
-            VStack(alignment: .leading, spacing: 32) {
-                IngredientsListView(mealDetails: $viewModel.details)
-                InstructionsView(mealDetails: $viewModel.details)
+        VStack {
+            if let url = URL(string: meal.strMealThumb) {
+                AsyncImage(url: url) { image in
+                    image
+                        .resizable()
+                        .frame(maxWidth: .infinity)
+                        .scaledToFit()
+                } placeholder: {
+                    Rectangle()
+                        .fill(.background)
+                        .frame(maxWidth: .infinity)
+                }
+                .ignoresSafeArea()
             }
-            .padding()
-            .task {
-                try? await viewModel.fetchDetails()
-            }
+            Spacer()
         }
-        .navigationTitle(viewModel.details?.name ?? "")
+        .task {
+            try? await viewModel.fetchDetails()
+        }
+        .sheet(isPresented: $showSheet, onDismiss: {
+            dismiss()
+        }) {
+            TabDetailView(viewModel: $viewModel)
+        }
     }
 }
 

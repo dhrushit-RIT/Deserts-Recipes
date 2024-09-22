@@ -35,6 +35,7 @@ struct InstructionsView: View {
                         
                         Text("\(mealDetails?.instructions[index] ?? "")")
                             .foregroundStyle(.secondary)
+                            .fixedSize(horizontal: false, vertical: true)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     .frame(maxWidth: .infinity)
@@ -44,7 +45,13 @@ struct InstructionsView: View {
         }
     }
 }
+struct PreviewInstructionsView: View {
+    @State var mealDetailResponse: MealDetailsResponse? = Mocks.mealDetailResponse
+    var body: some View {
+        InstructionsView(mealDetails: $mealDetailResponse)
+    }
+}
 
-//#Preview {
-//    InstructionsView(instructions: Mocks.instructions)
-//}
+#Preview {
+    PreviewInstructionsView()
+}

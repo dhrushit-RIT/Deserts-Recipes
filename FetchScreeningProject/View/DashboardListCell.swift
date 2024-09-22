@@ -8,42 +8,30 @@
 import SwiftUI
 
 struct DashboardListCell: View {
-//    @Binding var meal: Meal
     @State var meal: Meal
+    
+    @State private var cornerRadius = 12.0
+    
     var body: some View {
-        ZStack {
-            Color.white
-                .clipShape(RoundedRectangle(cornerRadius: 25.0))
-                .shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
-            HStack(alignment: .center) {
-                AsyncImage(url: URL(string: meal.strMealThumb)!) { data in
-                    data
-                        .image?
+        HStack(alignment: .center) {
+            AsyncImage(url: URL(string: meal.strMealThumb)!) { image in
+                withAnimation {
+                    image
                         .resizable()
                         .frame(width: 80, height: 80)
                         .clipShape(RoundedRectangle(cornerRadius: 8))
-                        .padding(.trailing, 16)
-                        .padding(.leading, 16)
-                    
                 }
-                Text(meal.strMeal)
-                    .font(.title3)
-                    .fontWeight(.bold)
-                    .multilineTextAlignment(.leading)
-                    .padding()
-                Spacer()
+                
+            } placeholder: {
+                RoundedRectangle(cornerRadius: 8)
+                    .fill(.gray.opacity(0.4))
+                    .frame(width: 80, height: 80)
             }
-            .frame(height: 100)
-            .background(
-                RoundedRectangle(cornerRadius: 25)
-                    .frame(minWidth: .infinity)
-                    .foregroundStyle(.white)
-                    .shadow(radius: 10)
-            )
-            .listRowSeparator(.hidden)
-        }
-        .task {
-            
+            Text(meal.strMeal)
+                .font(.title3)
+//                .fontWeight(.bold)
+                .multilineTextAlignment(.leading)
+            Spacer()
         }
     }
 }
