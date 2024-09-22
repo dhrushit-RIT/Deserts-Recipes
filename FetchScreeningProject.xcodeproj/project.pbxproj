@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		151F18BA2C9E5CC200DD3194 /* TabDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151F18B92C9E5CC200DD3194 /* TabDetailView.swift */; };
+		151F18BC2CA0A16B00DD3194 /* DashboardItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151F18BB2CA0A16B00DD3194 /* DashboardItemView.swift */; };
 		1531D28E2C7CF1F0009E7FDD /* IngredientsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1531D28D2C7CF1F0009E7FDD /* IngredientsListView.swift */; };
 		1531D2902C7CF305009E7FDD /* InstructionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1531D28F2C7CF305009E7FDD /* InstructionsView.swift */; };
 		15A4E6EA2C9898BD00B221C8 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A4E6E92C9898BD00B221C8 /* NetworkManager.swift */; };
@@ -22,7 +23,7 @@
 		15BF8C392C7322E300260632 /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF8C382C7322E300260632 /* Meal.swift */; };
 		15BF8C442C7BAB1400260632 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF8C432C7BAB1400260632 /* DashboardViewModel.swift */; };
 		15BF8C462C7BAC0100260632 /* States.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF8C452C7BAC0100260632 /* States.swift */; };
-		15BF8C4A2C7BB00300260632 /* DashboardListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF8C492C7BB00300260632 /* DashboardListCell.swift */; };
+		15BF8C4A2C7BB00300260632 /* FavoriteListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF8C492C7BB00300260632 /* FavoriteListCell.swift */; };
 		15BF8C4E2C7BB5F500260632 /* MealDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF8C4D2C7BB5F500260632 /* MealDetailsView.swift */; };
 		15BF8C512C7BB61F00260632 /* Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF8C502C7BB61F00260632 /* Mocks.swift */; };
 		15BF8C532C7BB99300260632 /* DashboardListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BF8C522C7BB99300260632 /* DashboardListView.swift */; };
@@ -51,6 +52,7 @@
 
 /* Begin PBXFileReference section */
 		151F18B92C9E5CC200DD3194 /* TabDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabDetailView.swift; sourceTree = "<group>"; };
+		151F18BB2CA0A16B00DD3194 /* DashboardItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardItemView.swift; sourceTree = "<group>"; };
 		1531D28D2C7CF1F0009E7FDD /* IngredientsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientsListView.swift; sourceTree = "<group>"; };
 		1531D28F2C7CF305009E7FDD /* InstructionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstructionsView.swift; sourceTree = "<group>"; };
 		15A4E6E92C9898BD00B221C8 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -68,7 +70,7 @@
 		15BF8C382C7322E300260632 /* Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
 		15BF8C432C7BAB1400260632 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
 		15BF8C452C7BAC0100260632 /* States.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = States.swift; sourceTree = "<group>"; };
-		15BF8C492C7BB00300260632 /* DashboardListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardListCell.swift; sourceTree = "<group>"; };
+		15BF8C492C7BB00300260632 /* FavoriteListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteListCell.swift; sourceTree = "<group>"; };
 		15BF8C4D2C7BB5F500260632 /* MealDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealDetailsView.swift; sourceTree = "<group>"; };
 		15BF8C502C7BB61F00260632 /* Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
 		15BF8C522C7BB99300260632 /* DashboardListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardListView.swift; sourceTree = "<group>"; };
@@ -179,12 +181,13 @@
 		15BF8C412C7BAAF500260632 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				15BF8C492C7BB00300260632 /* DashboardListCell.swift */,
+				15BF8C492C7BB00300260632 /* FavoriteListCell.swift */,
 				15BF8C4D2C7BB5F500260632 /* MealDetailsView.swift */,
 				15BF8C522C7BB99300260632 /* DashboardListView.swift */,
 				1531D28D2C7CF1F0009E7FDD /* IngredientsListView.swift */,
 				1531D28F2C7CF305009E7FDD /* InstructionsView.swift */,
 				151F18B92C9E5CC200DD3194 /* TabDetailView.swift */,
+				151F18BB2CA0A16B00DD3194 /* DashboardItemView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -360,8 +363,9 @@
 				15D5C4AE2C7CFE0E00D4FE21 /* String+Extensions.swift in Sources */,
 				15BF8C442C7BAB1400260632 /* DashboardViewModel.swift in Sources */,
 				15BF8C0F2C7320F600260632 /* ContentView.swift in Sources */,
-				15BF8C4A2C7BB00300260632 /* DashboardListCell.swift in Sources */,
+				15BF8C4A2C7BB00300260632 /* FavoriteListCell.swift in Sources */,
 				15BF8C552C7BBFAD00260632 /* MealDetailsViewModel.swift in Sources */,
+				151F18BC2CA0A16B00DD3194 /* DashboardItemView.swift in Sources */,
 				15BF8C462C7BAC0100260632 /* States.swift in Sources */,
 				15A4E6EA2C9898BD00B221C8 /* NetworkManager.swift in Sources */,
 				1531D28E2C7CF1F0009E7FDD /* IngredientsListView.swift in Sources */,

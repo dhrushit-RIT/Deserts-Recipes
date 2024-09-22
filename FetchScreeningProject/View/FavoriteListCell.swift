@@ -1,5 +1,5 @@
 //
-//  DashboardListCell.swift
+//  FavoriteListCell.swift
 //  FetchScreeningProject
 //
 //  Created by Dhrushit Raval on 8/25/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct DashboardListCell: View {
+struct FavoriteListCell: View {
     @State var meal: Meal
     
     @State private var cornerRadius = 12.0
@@ -29,7 +29,6 @@ struct DashboardListCell: View {
             }
             Text(meal.strMeal)
                 .font(.title3)
-//                .fontWeight(.bold)
                 .multilineTextAlignment(.leading)
             Spacer()
         }
@@ -38,5 +37,5 @@ struct DashboardListCell: View {
 
 #Preview {
     let meal = Mocks.meal
-    return DashboardListCell(meal: meal)
+    return FavoriteListCell(meal: meal)
 }
