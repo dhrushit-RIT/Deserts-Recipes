@@ -31,7 +31,7 @@ struct IngredientsListView: View {
                         Text("\(ingredient.quantity)")
                         
                     }
-                    .padding(.horizontal, 20)
+//                    .padding(.horizontal, 20)
                     .frame(height: 32)
                     Divider()
                 }
@@ -42,6 +42,7 @@ struct IngredientsListView: View {
                     .fill(.gray.opacity(0.1))
             )
         }
+        .padding()
     }
 }
 
